@@ -19,15 +19,15 @@ class MultiHeadAttention(nn.Module):
             attention+=mask
         attention = torch.softmax(attention, dim =-1)
         scaled = attention @ v
-        return scaled, attention
+        return scaled
 
-    def forward(self,x):
+    def forward(self,x, mask=None):
         qkv = self.qkv(x)
         ad = self.d_model // self.ah
         qkv = qkv.reshape(x.shape[0],x.shape[1], self.ah, ad*3 )
         qkv = qkv.permute(0,2,1,3)
         q,k,v = qkv.chunk(chunks=3, dim=3)
-        values, attention = MultiHeadAttention.scaled_dot_product(q,k,v)
+        values= MultiHeadAttention.scaled_dot_product(q,k,v, mask=mask)
         batch, head, seq, dim = values.size()
         values = values.reshape(batch, seq, dim*head)
 

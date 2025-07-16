@@ -1,2 +1,4 @@
-__pycache__/
 *.py[cod]
+*.so
+*.pyd
+__pycache__

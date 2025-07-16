@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
-from LayerNormalization import LayerNormalization
-from  MultiHeadAttention import MultiHeadAttention
-from PositionwiseFeedForward import PositionwiseFeedForward
+from transformer_heads.LayerNormalization import LayerNormalization
+from  transformer_heads.MultiHeadAttention import MultiHeadAttention
+from transformer_heads.PositionwiseFeedForward import PositionwiseFeedForward
 
 
 

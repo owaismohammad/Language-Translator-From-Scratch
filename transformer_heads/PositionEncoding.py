@@ -19,15 +19,15 @@ class PositionEncoding(nn.Module):
         print(f"pos/odd denom = {pos/odd_denom}")
         print(f"{(pos/even_denom).unsqueeze(1)}")
         z = x
-        z[...,0::2] = (pos/even_denom).unsqueeze(1)
-        z[...,1::2] = (pos/odd_denom).unsqueeze(1)
+        z[...,0::2] = torch.sin(pos/even_denom)
+        z[...,1::2] = torch.cos(pos/odd_denom)
         return z
 
 input= torch.tensor([[[1,2,3],
                        [4,5,6]],
 
-                      [[7,8,9],
+                     [ [7,8,9],
                        [10,11,12]]], dtype=torch.float)
-model = PositionEncoding(2,3)
+model = PositionEncoding(max_seq_len=2,d_model=3)
 y = model(input)
-y
+print(f"y={y}")
