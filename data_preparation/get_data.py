@@ -54,8 +54,8 @@ class Clean():
     
     
     
-english_to_index = {k:v for v,k in enumerate(english_vocabulary)}
-kannada_to_index = {k:v for v,k in enumerate(kannada_vocabulary)}
+# english_to_index = {k:v for v,k in enumerate(english_vocabulary)}
+# kannada_to_index = {k:v for v,k in enumerate(kannada_vocabulary)}
 
 
 english_txt = Path('data_preparation/train/english.txt')
@@ -68,26 +68,26 @@ dataset = model.clean()
 loader = DataLoader(dataset,batch_size=32, drop_last=True)
 
 
-eng_embed = SentenceEmbedding(max_sequence_length=200,
-                          d_model= 512,
-                          language_to_idx=english_to_index,
-                          START_TOKEN=START_TOKEN,
-                          END_TOKEN=END_TOKEN,
-                          PADDING_TOKEN=PADDING_TOKEN)
-kan_embed = SentenceEmbedding(max_sequence_length=200,
-                          d_model= 512,
-                          language_to_idx=kannada_to_index,
-                          START_TOKEN=START_TOKEN,
-                          END_TOKEN=END_TOKEN,
-                          PADDING_TOKEN=PADDING_TOKEN)
-english_embeddings=[]
-kannada_embeddings=[]
+# eng_embed = SentenceEmbedding(max_sequence_length=200,
+#                           d_model= 512,
+#                           language_to_idx=english_to_index,
+#                           START_TOKEN=START_TOKEN,
+#                           END_TOKEN=END_TOKEN,
+#                           PADDING_TOKEN=PADDING_TOKEN)
+# kan_embed = SentenceEmbedding(max_sequence_length=200,
+#                           d_model= 512,
+#                           language_to_idx=kannada_to_index,
+#                           START_TOKEN=START_TOKEN,
+#                           END_TOKEN=END_TOKEN,
+#                           PADDING_TOKEN=PADDING_TOKEN)
+# english_embeddings=[]
+# kannada_embeddings=[]
 
 
-for batch in loader:
-    eng, kan = batch
-    english_embeddings.append( eng_embed(eng))
-    # kannada_embeddings.append(kan_embed(kan))
+# for batch in loader:
+#     eng, kan = batch
+#     english_embeddings.append( eng_embed(eng))
+#     # kannada_embeddings.append(kan_embed(kan))
     
-print(english_embeddings.shape)    
+# print(english_embeddings.shape)    
     
