@@ -8,26 +8,15 @@ class PositionEncoding(nn.Module):
         self.d_model = d_model
 
     def forward(self, x):
-        batch, seq, dim = x.size()
         pos = torch.arange(0, self.maxseq).reshape(self.maxseq, 1)
-        print(f"pos = {pos}")
         even_denom = torch.pow(10000, torch.arange(0,self.d_model,2)/self.d_model )
-        print(f"even deno = {even_denom}")
-        odd_denom = torch.pow(10000, torch.arange(1,self.d_model,2)/self.d_model )
-        print(f"odd denom = {odd_denom}")
-        print(f"pos/even denom = {pos/even_denom}")
-        print(f"pos/odd denom = {pos/odd_denom}")
-        print(f"{(pos/even_denom).unsqueeze(1)}")
+        odd_denom = torch.pow(10000, torch.arange(1,self.d_model,2)/self.d_model ) 
         z = x
         z[...,0::2] = torch.sin(pos/even_denom)
         z[...,1::2] = torch.cos(pos/odd_denom)
         return z
 
-input= torch.tensor([[[1,2,3],
-                       [4,5,6]],
-
-                     [ [7,8,9],
-                       [10,11,12]]], dtype=torch.float)
-model = PositionEncoding(max_seq_len=2,d_model=3)
-y = model(input)
-print(f"y={y}")
+# input= torch.rand((3,200,512), dtype=torch.float)
+# model = PositionEncoding(max_seq_len=200,d_model=512)
+# y = model(input)
+# print(f"y={y}")
